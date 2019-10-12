@@ -20,8 +20,7 @@ import java.util.Set;
 /**
  * Created by zhy on 15/9/10.
  */
-public class TagFlowLayout extends FlowLayout
-        implements TagAdapter.OnDataChangedListener {
+public class TagFlowLayout extends FlowLayout implements TagAdapter.OnDataChangedListener {
 
     private TagAdapter mTagAdapter;
     private int mSelectedMax = -1;//-1为不限制数量
@@ -31,6 +30,7 @@ public class TagFlowLayout extends FlowLayout
 
     private OnSelectListener mOnSelectListener;
     private OnTagClickListener mOnTagClickListener;
+
 
     public interface OnSelectListener {
         void onSelected(Set<Integer> selectPosSet);

@@ -39,7 +39,7 @@ public class LimitSelectedFragment extends Fragment {
         final LayoutInflater mInflater = LayoutInflater.from(getActivity());
         mFlowLayout = (TagFlowLayout) view.findViewById(R.id.id_flowlayout);
         mFlowLayout.setMaxSelectCount(0);
-
+        mFlowLayout.setMaxLine(3);
         mFlowLayout.setAdapter(new TagAdapter<String>(mVals) {
 
             @Override
@@ -52,6 +52,7 @@ public class LimitSelectedFragment extends Fragment {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        mFlowLayout.setMaxLine(100);
                         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                     }
                 });
