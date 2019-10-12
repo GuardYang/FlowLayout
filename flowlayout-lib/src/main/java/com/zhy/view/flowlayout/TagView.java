@@ -29,7 +29,8 @@ public class TagView extends FrameLayout implements Checkable
         int[] states = super.onCreateDrawableState(extraSpace + 1);
         if (isChecked())
         {
-            mergeDrawableStates(states, CHECK_STATE);
+            //设置背景色
+//            mergeDrawableStates(states, CHECK_STATE);
         }
         return states;
     }

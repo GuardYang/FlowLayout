@@ -6,7 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -34,14 +38,23 @@ public class LimitSelectedFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         final LayoutInflater mInflater = LayoutInflater.from(getActivity());
         mFlowLayout = (TagFlowLayout) view.findViewById(R.id.id_flowlayout);
-        mFlowLayout.setMaxSelectCount(3);
+        mFlowLayout.setMaxSelectCount(0);
+
         mFlowLayout.setAdapter(new TagAdapter<String>(mVals) {
 
             @Override
-            public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) mInflater.inflate(R.layout.tv,
+            public View getView(FlowLayout parent, int position, final String s) {
+                FrameLayout tv = (FrameLayout) mInflater.inflate(R.layout.item_tv,
                         mFlowLayout, false);
-                tv.setText(s);
+                TextView textView = (TextView) tv.findViewById(R.id.tv);
+                ImageView imageView = (ImageView) tv.findViewById(R.id.img);
+                textView.setText(s);
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 return tv;
             }
         });
