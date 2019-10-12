@@ -9,8 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zhy.base.adapter.ViewHolder;
-import com.zhy.base.adapter.abslistview.CommonAdapter;
+
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
