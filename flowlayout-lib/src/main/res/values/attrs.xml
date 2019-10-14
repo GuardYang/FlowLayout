@@ -8,4 +8,9 @@
             <enum name="right" value="1" />
         </attr>
     </declare-styleable>
+    <declare-styleable name="FlowLayout">
+        <attr name="horizontalSpace" format="dimension" />
+        <attr name="verticalSpace" format="dimension" />
+        <attr name="isShowAddViewAnimation" format="boolean" />
+    </declare-styleable>
 </resources>

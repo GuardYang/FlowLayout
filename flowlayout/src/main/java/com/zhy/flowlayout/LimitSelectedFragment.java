@@ -12,21 +12,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zhy.view.flowlayout.CommonTagFlowLayout;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
+
+import java.util.ArrayList;
 
 /**
  * Created by zhy on 15/9/10.
  */
 public class LimitSelectedFragment extends Fragment {
-    private String[] mVals = new String[]
-            {"Hello", "Android", "Weclome Hi ", "Button", "TextView", "Hello",
-                    "Android", "Weclome", "Button ImageView", "TextView", "Helloworld",
-                    "Android", "Weclome Hello", "Button Text", "TextView", "Hello", "Android", "Weclome Hi ", "Button", "TextView", "Hello",
-                    "Android", "Weclome", "Button ImageView"};
 
-    private TagFlowLayout mFlowLayout;
+
+    private CommonTagFlowLayout mFlowLayout;
+    private TagAdapter<String> adapter;
 
     @Nullable
     @Override
@@ -37,13 +37,24 @@ public class LimitSelectedFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         final LayoutInflater mInflater = LayoutInflater.from(getActivity());
-        mFlowLayout = (TagFlowLayout) view.findViewById(R.id.id_flowlayout);
-        mFlowLayout.setMaxSelectCount(0);
+        mFlowLayout = (CommonTagFlowLayout) view.findViewById(R.id.id_flowlayout);
         mFlowLayout.setMaxLine(3);
-        mFlowLayout.setAdapter(new TagAdapter<String>(mVals) {
+        final ArrayList<String> mList = new ArrayList();
+        mList.add("Android");
+        mList.add("FlowLayout");
+        mList.add("IOS");
+        mList.add("WINDOWS");
+        mList.add("AppCompatActivity");
+        mList.add("TagFlowLayout");
+        mList.add("MainActivity");
+        mList.add("Bundle");
+        mList.add("savedInstanceState");
+        mList.add("onCreate");
+        mList.add("dddddddddddddddddddddddddddddddddddddddfffffffffffffffffffffffffffffff");
+        adapter = new TagAdapter<String>(mList) {
 
             @Override
-            public View getView(FlowLayout parent, int position, final String s) {
+            public View getView(FlowLayout parent, final int position, final String s) {
                 FrameLayout tv = (FrameLayout) mInflater.inflate(R.layout.item_tv,
                         mFlowLayout, false);
                 TextView textView = (TextView) tv.findViewById(R.id.tv);
@@ -52,12 +63,15 @@ public class LimitSelectedFragment extends Fragment {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mFlowLayout.setMaxLine(100);
+                        mList.remove(position);
+                        mFlowLayout.setMaxLine(10);
+                        adapter.refreshTags(mList);
                         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                     }
                 });
                 return tv;
             }
-        });
+        };
+        mFlowLayout.setAdapter(adapter);
     }
 }

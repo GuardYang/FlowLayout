@@ -7,6 +7,8 @@ import android.util.LayoutDirection;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.text.TextUtilsCompat;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.ScaleAnimation;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +28,7 @@ public class FlowLayout extends ViewGroup {
     protected int mGravity;
     private int maxLine = -1;//最大行数
     private boolean isExceedingMaxLimit; //预设的子View是否超出了最大行数限制
-
+    private boolean isShowAddViewAnimation;
     public void setMaxLine(int maxLine) {
         this.maxLine = maxLine;
     }
@@ -36,6 +38,7 @@ public class FlowLayout extends ViewGroup {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.TagFlowLayout);
         mGravity = ta.getInt(R.styleable.TagFlowLayout_tag_gravity, LEFT);
         int layoutDirection = TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault());
+        isShowAddViewAnimation= ta.getBoolean(R.styleable.FlowLayout_isShowAddViewAnimation,true  );
         if (layoutDirection == LayoutDirection.RTL) {
             if (mGravity == LEFT) {
                 mGravity = RIGHT;
@@ -44,6 +47,7 @@ public class FlowLayout extends ViewGroup {
             }
         }
         ta.recycle();
+        initAddViewAnimation();
     }
 
     public FlowLayout(Context context, AttributeSet attrs) {
@@ -52,6 +56,17 @@ public class FlowLayout extends ViewGroup {
 
     public FlowLayout(Context context) {
         this(context, null);
+    }
+    //第一次进入并且配置是需要动画的时候展示
+    //addView动画
+    private void initAddViewAnimation() {
+        if (isShowAddViewAnimation) {
+            ScaleAnimation sa = new ScaleAnimation(0, 1, 0, 1);
+            sa.setDuration(200);
+            LayoutAnimationController lac = new LayoutAnimationController(sa, 0.5f);
+            lac.setOrder(LayoutAnimationController.ORDER_NORMAL);
+            setLayoutAnimation(lac);
+        }
     }
 
     @Override
